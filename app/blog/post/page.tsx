@@ -1,16 +1,21 @@
+"use client";
+
 /**
  * Page: Blog Post (Querystring)
  * Route: /blog/post?slug=...
  * File: app/blog/post/page.tsx
  */
 
-import type { Metadata } from "next";
 import Link from "next/link";
 
-const POSTS: Record<
-  string,
-  { title: string; date: string; body: string[]; excerpt: string }
-> = {
+type Post = {
+  title: string;
+  date: string;
+  excerpt: string;
+  body: string[];
+};
+
+const POSTS: Record<string, Post> = {
   "coverage-gaps-that-cost-real-money": {
     title: "Coverage gaps that cost real money",
     date: "2025-12-19",
@@ -46,21 +51,13 @@ const POSTS: Record<
   },
 };
 
-export const metadata: Metadata = {
-  title: "Blog Post | Blynx Insurance Group",
-  description: "Blynx Insurance Group insights on risk and coverage structure.",
-};
-
-function getSlugFromSearchParams(): string | null {
-  if (typeof window === "undefined") return null;
+function getSlugFromUrl(): string | null {
   const sp = new URLSearchParams(window.location.search);
   return sp.get("slug");
 }
 
 export default function BlogPostQueryPage() {
-  // NOTE: This is a simple client-side read of querystring for speed.
-  // If you want full SSR later, we’ll switch to Next's searchParams in server component.
-  const slug = getSlugFromSearchParams();
+  const slug = getSlugFromUrl();
   const post = slug ? POSTS[slug] : null;
 
   if (!slug || !post) {
@@ -103,4 +100,3 @@ export default function BlogPostQueryPage() {
     </main>
   );
 }
-
