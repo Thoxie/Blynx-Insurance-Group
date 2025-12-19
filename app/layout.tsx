@@ -1,6 +1,7 @@
 /**
+ * Layout: Global Layout
+ * Route: All pages
  * File: app/layout.tsx
- * Purpose: Global layout + top navigation (with dropdowns) + footer
  */
 
 import type { Metadata } from "next";
@@ -121,8 +122,6 @@ export default function RootLayout({
                   </div>
                 </Dropdown>
 
-                <NavLink href="/blog">Blog</NavLink>
-
                 <Dropdown label="Resources">
                   <div className="grid gap-1">
                     <DropdownItem
@@ -134,6 +133,11 @@ export default function RootLayout({
                       href="/resources/carriers"
                       title="Our Carriers"
                       desc="Selected carrier and market access."
+                    />
+                    <DropdownItem
+                      href="/blog"
+                      title="Blog"
+                      desc="Insights on coverage and risk."
                     />
                   </div>
                 </Dropdown>
@@ -174,8 +178,9 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
 
         <footer className="border-t border-gray-200 px-6 py-6 text-sm text-gray-600">
-          <div className="mx-auto max-w-6xl flex flex-col gap-2">
+          <div className="mx-auto max-w-6xl flex flex-col gap-3">
             <div>© {new Date().getFullYear()} Blynx Insurance Group.</div>
+
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               <Link href="/contact" className="underline">
                 Contact
@@ -189,6 +194,53 @@ export default function RootLayout({
               <Link href="/quote" className="underline">
                 Get a Quote
               </Link>
+              <Link href="/blog" className="underline">
+                Blog
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-gray-500">Social:</span>
+              <a
+                className="underline"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Facebook
+              </a>
+              <a
+                className="underline"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Instagram
+              </a>
+              <a
+                className="underline"
+                href="https://tiktok.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                TikTok
+              </a>
+              <a
+                className="underline"
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a>
+              <a
+                className="underline"
+                href="https://youtube.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                YouTube
+              </a>
             </div>
           </div>
         </footer>
