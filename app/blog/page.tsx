@@ -54,7 +54,7 @@ export default function BlogIndexPage() {
         {posts.map((p) => (
           <Link
             key={p.slug}
-            href={`/blog/${p.slug}`}
+            href={`/blog/post?slug=${encodeURIComponent(p.slug)}`}
             className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
           >
             <div className="text-sm text-gray-500">{p.date}</div>
@@ -69,4 +69,3 @@ export default function BlogIndexPage() {
     </main>
   );
 }
-
