@@ -1,42 +1,99 @@
 import Link from "next/link";
 
-export default function About() {
+export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-3xl font-extrabold tracking-tight">About THOXIE - AI Self-Representing</h1>
+    <main style={{ padding: "48px 24px", maxWidth: 960, margin: "0 auto" }}>
+      <header style={{ marginBottom: 28 }}>
+        <h1 style={{ fontSize: 38, lineHeight: 1.15, margin: 0 }}>About</h1>
+        <p style={{ fontSize: 18, marginTop: 12, maxWidth: 760 }}>
+          Blynx Insurance Group advises clients with complex insurance needs
+          where judgment, access, and execution matter.
+        </p>
 
-      <p className="mt-6 text-zinc-700 leading-relaxed">
-        THOXIE is built for people going through divorce in California who refuse to lose
-        because they were outprepared. Most outcomes aren’t decided by a single “gotcha.”
-        They’re decided by who shows up organized, focused, and ready — with the right facts,
-        the right documents, and a clear plan.
-      </p>
+        <div style={{ marginTop: 16, display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <Link
+            href="/contact"
+            style={{
+              textDecoration: "none",
+              padding: "10px 14px",
+              borderRadius: 12,
+              border: "1px solid #111827",
+              background: "#111827",
+              color: "white",
+              fontWeight: 600,
+              display: "inline-block",
+            }}
+          >
+            Request a call
+          </Link>
 
-      <p className="mt-4 text-zinc-700 leading-relaxed">
-        The traditional system is slow and expensive. You pay for time, wait for updates, and
-        end up making decisions under stress. THOXIE flips that. It’s designed to help you move
-        fast, stay structured, and keep momentum — so you’re not reacting. You’re executing a strategy.
-      </p>
+          <Link
+            href="/services"
+            style={{
+              textDecoration: "none",
+              padding: "10px 14px",
+              borderRadius: 12,
+              border: "1px solid #e5e7eb",
+              color: "inherit",
+              fontWeight: 600,
+              display: "inline-block",
+            }}
+          >
+            View services
+          </Link>
+        </div>
+      </header>
 
-      <p className="mt-4 text-zinc-700 leading-relaxed">
-        THOXIE helps you organize issues, timelines, and priorities; keep your case materials in one place;
-        and generate structured summaries and next steps so you can stay ahead. It’s built to be simple enough
-        for normal people — not lawyers — while still feeling sharp, modern, and powerful.
-      </p>
+      <section style={{ display: "grid", gap: 14 }}>
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>Our approach</h2>
+          <p style={{ marginTop: 10, lineHeight: 1.7 }}>
+            We start with risk. Not products. We focus on what creates true
+            downside exposure — personal, operational, and financial — then
+            structure coverage to match. The result is clarity, not noise.
+          </p>
+        </div>
 
-      <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-        <span className="font-semibold">Important:</span> THOXIE is not a law firm and does not provide legal advice.
-        THOXIE is a legal support and preparation tool. If you need legal advice, consult a licensed attorney.
-      </div>
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>Discretion</h2>
+          <p style={{ marginTop: 10, lineHeight: 1.7 }}>
+            Many clients want speed without publicity and solutions without
+            unnecessary circulation of details. We operate with a disciplined,
+            need-to-know mindset.
+          </p>
+        </div>
 
-      <div className="mt-10">
-        <Link
-          href="/"
-          className="rounded-xl bg-zinc-950 px-5 py-3 text-sm font-semibold text-white hover:bg-zinc-800"
-        >
-          Back to Home
-        </Link>
-      </div>
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>Who we serve</h2>
+          <ul style={{ marginTop: 10, lineHeight: 1.8 }}>
+            <li>Affluent individuals and families with complex personal risk</li>
+            <li>Business owners who need durable coverage strategy</li>
+            <li>Clients requiring access beyond standard markets</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style={{ marginTop: 18 }}>
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>Why Blynx</h2>
+          <p style={{ marginTop: 10, lineHeight: 1.7 }}>
+            Complex needs break simplistic solutions. Blynx is built to handle
+            edge cases — layered coverage, business exposures, specialty lines,
+            and fast-moving situations — with a clear process and strong market
+            access.
+          </p>
+          <p style={{ marginTop: 10, lineHeight: 1.7 }}>
+            If you want an initial view on your coverage structure, start here:
+          </p>
+          <p style={{ marginTop: 10 }}>
+            <Link href="/contact" style={{ textDecoration: "underline" }}>
+              Contact Blynx →
+            </Link>
+          </p>
+        </div>
+      </section>
     </main>
   );
 }
+
+
