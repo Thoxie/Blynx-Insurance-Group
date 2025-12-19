@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,13 +9,28 @@ export const metadata: Metadata = {
     "Insurance advisory and risk management platform for high-net-worth individuals, families, and business owners.",
 };
 
+function getPathname(): string {
+  // In server components we can infer the current path from request headers.
+  // Works reliably on Vercel/Next runtime.
+  const h = headers();
+  const url = h.get("x-url") || h.get("referer") || "";
+  try {
+    if (url) return new URL(url).pathname || "/";
+  } catch {}
+  return "/";
+}
+
 function NavLink({
   href,
-  children,
+  label,
+  currentPath,
 }: {
   href: string;
-  children: React.ReactNode;
+  label: string;
+  currentPath: string;
 }) {
+  const isActive = currentPath === href;
+
   return (
     <Link
       href={href}
@@ -23,9 +39,14 @@ function NavLink({
         color: "inherit",
         padding: "8px 10px",
         borderRadius: 10,
+        border: isActive ? "1px solid #111827" : "1px solid transparent",
+        background: isActive ? "#111827" : "transparent",
+        colorScheme: "light",
+        color: isActive ? "white" : "inherit",
+        fontWeight: isActive ? 700 : 600,
       }}
     >
-      {children}
+      {label}
     </Link>
   );
 }
@@ -35,6 +56,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const currentPath = getPathname();
+
   return (
     <html lang="en">
       <body>
@@ -67,9 +90,9 @@ export default function RootLayout({
             </Link>
 
             <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <NavLink href="/services">Services</NavLink>
-              <NavLink href="/about">About</NavLink>
-              <NavLink href="/contact">Contact</NavLink>
+              <NavLink href="/services" label="Services" currentPath={currentPath} />
+              <NavLink href="/about" label="About" currentPath={currentPath} />
+              <NavLink href="/contact" label="Contact" currentPath={currentPath} />
             </nav>
           </div>
         </header>
