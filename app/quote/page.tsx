@@ -6,6 +6,12 @@
 
 "use client";
 
+/**
+ * Page: Get a Quote
+ * Route: /quote
+ * File: app/quote/page.tsx
+ */
+
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
@@ -105,9 +111,8 @@ export default function QuotePage() {
         <div className="rounded-2xl border border-gray-200 bg-white p-6">
           <h2 className="text-lg font-semibold">Quote request</h2>
           <p className="mt-3 text-gray-700 leading-relaxed">
-            This now submits to the live endpoint{" "}
-            <code className="font-semibold">/api/lead</code>. Next step (later)
-            is sending to email/CRM.
+            This submits to <code className="font-semibold">/api/lead</code>.
+            Next step is wiring delivery to email/CRM.
           </p>
 
           <form onSubmit={onSubmit} className="mt-5 grid gap-4">
