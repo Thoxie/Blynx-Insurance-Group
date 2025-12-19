@@ -1,81 +1,76 @@
+  /**
+ * Page: Contact
+ * Route: /contact
+ * File: app/contact/page.tsx
+ */
+
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Contact | Blynx Insurance Group",
+  description:
+    "Request a confidential conversation with Blynx Insurance Group to discuss complex insurance coverage and risk management needs.",
+};
+
+export default function ContactPage() {
   return (
-    <main style={{ padding: "48px 24px", maxWidth: 960, margin: "0 auto" }}>
-      <header style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 44, lineHeight: 1.08, margin: 0 }}>
-          Blynx Insurance Group
+    <main className="mx-auto max-w-5xl px-6 py-14">
+      <header className="mb-10">
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+          Contact
         </h1>
-        <p style={{ fontSize: 18, marginTop: 12, maxWidth: 760 }}>
-          Complex insurance needs require broader market access. We help
-          affluent individuals, families, and business owners structure coverage
-          with clarity, speed, and discretion.
+        <p className="mt-4 text-lg text-gray-700 max-w-3xl">
+          If you have complex coverage needs, we’ll ask a few questions and
+          respond quickly. Discreet, direct, and market-informed.
         </p>
-
-        <div style={{ marginTop: 18, display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <Link
-            href="/contact"
-            style={{
-              textDecoration: "none",
-              padding: "10px 14px",
-              borderRadius: 12,
-              border: "1px solid #111827",
-              background: "#111827",
-              color: "white",
-              fontWeight: 600,
-              display: "inline-block",
-            }}
-          >
-            Request a call
-          </Link>
-
-          <Link
-            href="/services"
-            style={{
-              textDecoration: "none",
-              padding: "10px 14px",
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              color: "inherit",
-              fontWeight: 600,
-              display: "inline-block",
-            }}
-          >
-            View services
-          </Link>
-        </div>
       </header>
 
-      <section style={{ display: "grid", gap: 14 }}>
-        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
-          <h2 style={{ margin: 0, fontSize: 20 }}>Who we serve</h2>
-          <ul style={{ marginTop: 10, lineHeight: 1.8 }}>
-            <li>Affluent individuals and families with complex personal risk</li>
-            <li>Business owners seeking durable coverage strategy</li>
-            <li>Clients needing access beyond standard markets</li>
-          </ul>
+      <section className="grid gap-6">
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <h2 className="text-lg font-semibold">Request a call</h2>
+
+          <form className="mt-4 grid gap-4">
+            <input
+              placeholder="Name"
+              className="rounded-xl border border-gray-200 px-3 py-2"
+            />
+            <input
+              placeholder="Email"
+              type="email"
+              className="rounded-xl border border-gray-200 px-3 py-2"
+            />
+            <input
+              placeholder="Phone (optional)"
+              className="rounded-xl border border-gray-200 px-3 py-2"
+            />
+            <textarea
+              placeholder="Brief message"
+              rows={4}
+              className="rounded-xl border border-gray-200 px-3 py-2"
+            />
+
+            <button
+              type="button"
+              className="mt-2 w-fit rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+            >
+              Submit
+            </button>
+
+            <p className="text-sm text-gray-500">
+              Form submission will be connected next.
+            </p>
+          </form>
         </div>
 
-        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
-          <h2 style={{ margin: 0, fontSize: 20 }}>What we do</h2>
-          <ul style={{ marginTop: 10, lineHeight: 1.8 }}>
-            <li>Coverage review and gap analysis</li>
-            <li>Market placement strategy and carrier access</li>
-            <li>Business risk management support</li>
-            <li>Ongoing policy management and renewal advocacy</li>
-          </ul>
-        </div>
-
-        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
-          <h2 style={{ margin: 0, fontSize: 20 }}>Next step</h2>
-          <p style={{ marginTop: 10, lineHeight: 1.7 }}>
-            Tell us what you’re trying to solve. We’ll respond quickly and
-            outline an initial approach.
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <h2 className="text-lg font-semibold">Prefer email?</h2>
+          <p className="mt-3 text-gray-700">
+            We can add a direct contact address once you confirm the inbox.
           </p>
-          <p style={{ marginTop: 10 }}>
-            <Link href="/contact" style={{ textDecoration: "underline" }}>
-              Go to Contact →
+          <p className="mt-3">
+            <Link href="/services" className="underline">
+              Review services →
             </Link>
           </p>
         </div>
