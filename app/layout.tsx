@@ -134,11 +134,6 @@ export default function RootLayout({
                       title="Our Carriers"
                       desc="Selected carrier and market access."
                     />
-                    <DropdownItem
-                      href="/blog"
-                      title="Blog"
-                      desc="Insights on coverage and risk."
-                    />
                   </div>
                 </Dropdown>
 
@@ -193,9 +188,6 @@ export default function RootLayout({
               </Link>
               <Link href="/quote" className="underline">
                 Get a Quote
-              </Link>
-              <Link href="/blog" className="underline">
-                Blog
               </Link>
             </div>
 
