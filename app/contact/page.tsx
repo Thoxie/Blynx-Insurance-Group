@@ -1,158 +1,82 @@
 import Link from "next/link";
 
-export default function ContactPage() {
+export default function Home() {
   return (
     <main style={{ padding: "48px 24px", maxWidth: 960, margin: "0 auto" }}>
       <header style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 38, lineHeight: 1.15, margin: 0 }}>Contact</h1>
+        <h1 style={{ fontSize: 44, lineHeight: 1.08, margin: 0 }}>
+          Blynx Insurance Group
+        </h1>
         <p style={{ fontSize: 18, marginTop: 12, maxWidth: 760 }}>
-          If you have complex coverage needs, we’ll ask a few questions and
-          respond quickly. Discreet, direct, and market-informed.
+          Complex insurance needs require broader market access. We help
+          affluent individuals, families, and business owners structure coverage
+          with clarity, speed, and discretion.
         </p>
+
+        <div style={{ marginTop: 18, display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <Link
+            href="/contact"
+            style={{
+              textDecoration: "none",
+              padding: "10px 14px",
+              borderRadius: 12,
+              border: "1px solid #111827",
+              background: "#111827",
+              color: "white",
+              fontWeight: 600,
+              display: "inline-block",
+            }}
+          >
+            Request a call
+          </Link>
+
+          <Link
+            href="/services"
+            style={{
+              textDecoration: "none",
+              padding: "10px 14px",
+              borderRadius: 12,
+              border: "1px solid #e5e7eb",
+              color: "inherit",
+              fontWeight: 600,
+              display: "inline-block",
+            }}
+          >
+            View services
+          </Link>
+        </div>
       </header>
 
-      <section style={{ display: "grid", gap: 16 }}>
-        <div
-          style={{
-            padding: 20,
-            border: "1px solid #e5e7eb",
-            borderRadius: 12,
-          }}
-        >
-          <h2 style={{ margin: 0, fontSize: 20 }}>Request a call</h2>
-
-          <form style={{ marginTop: 12, display: "grid", gap: 12 }}>
-            <div style={{ display: "grid", gap: 6 }}>
-              <label htmlFor="name" style={{ fontSize: 14 }}>
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                placeholder="Your name"
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #e5e7eb",
-                }}
-              />
-            </div>
-
-            <div style={{ display: "grid", gap: 6 }}>
-              <label htmlFor="email" style={{ fontSize: 14 }}>
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="you@company.com"
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #e5e7eb",
-                }}
-              />
-            </div>
-
-            <div style={{ display: "grid", gap: 6 }}>
-              <label htmlFor="phone" style={{ fontSize: 14 }}>
-                Phone (optional)
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                placeholder="(###) ###-####"
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #e5e7eb",
-                }}
-              />
-            </div>
-
-            <div style={{ display: "grid", gap: 6 }}>
-              <label htmlFor="topic" style={{ fontSize: 14 }}>
-                What are you looking for?
-              </label>
-              <select
-                id="topic"
-                name="topic"
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #e5e7eb",
-                  background: "white",
-                }}
-                defaultValue="coverage-review"
-              >
-                <option value="coverage-review">Coverage review</option>
-                <option value="market-placement">Market placement</option>
-                <option value="business-risk">Business risk management</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div style={{ display: "grid", gap: 6 }}>
-              <label htmlFor="message" style={{ fontSize: 14 }}>
-                Brief message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="A sentence or two is enough (industry, assets, business type, timeline, etc.)."
-                rows={5}
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #e5e7eb",
-                  resize: "vertical",
-                }}
-              />
-            </div>
-
-            <button
-              type="button"
-              style={{
-                padding: "10px 14px",
-                borderRadius: 12,
-                border: "1px solid #111827",
-                background: "#111827",
-                color: "white",
-                fontWeight: 600,
-                cursor: "pointer",
-                width: "fit-content",
-              }}
-            >
-              Submit
-            </button>
-
-            <p style={{ margin: 0, fontSize: 13, color: "#4b5563" }}>
-              This form is a placeholder for now. Next step: connect it to email
-              or a CRM via a Next.js API route.
-            </p>
-          </form>
+      <section style={{ display: "grid", gap: 14 }}>
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>Who we serve</h2>
+          <ul style={{ marginTop: 10, lineHeight: 1.8 }}>
+            <li>Affluent individuals and families with complex personal risk</li>
+            <li>Business owners seeking durable coverage strategy</li>
+            <li>Clients needing access beyond standard markets</li>
+          </ul>
         </div>
 
-        <div
-          style={{
-            padding: 20,
-            border: "1px solid #e5e7eb",
-            borderRadius: 12,
-          }}
-        >
-          <h2 style={{ margin: 0, fontSize: 20 }}>Prefer email?</h2>
-          <p style={{ marginTop: 10, lineHeight: 1.7 }}>
-            Add your preferred contact method here. If you want a mailto link,
-            we’ll wire it up once you tell me the correct inbox.
-          </p>
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>What we do</h2>
+          <ul style={{ marginTop: 10, lineHeight: 1.8 }}>
+            <li>Coverage review and gap analysis</li>
+            <li>Market placement strategy and carrier access</li>
+            <li>Business risk management support</li>
+            <li>Ongoing policy management and renewal advocacy</li>
+          </ul>
+        </div>
 
+        <div style={{ padding: 20, border: "1px solid #e5e7eb", borderRadius: 12 }}>
+          <h2 style={{ margin: 0, fontSize: 20 }}>Next step</h2>
           <p style={{ marginTop: 10, lineHeight: 1.7 }}>
-            You can also review our{" "}
-            <Link href="/services" style={{ textDecoration: "underline" }}>
-              Services
-            </Link>{" "}
-            page before reaching out.
+            Tell us what you’re trying to solve. We’ll respond quickly and
+            outline an initial approach.
+          </p>
+          <p style={{ marginTop: 10 }}>
+            <Link href="/contact" style={{ textDecoration: "underline" }}>
+              Go to Contact →
+            </Link>
           </p>
         </div>
       </section>
