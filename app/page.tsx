@@ -15,20 +15,24 @@ export default function HomePage() {
       <section className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-6 pt-12 pb-12">
           <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-           
-          <h1 className="mt-4 max-w-4xl text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
-            Complex insurance needs require a fixer with market access. A team or problem solvers.
-          </h1>
-
-          <p className="mt-5 max-w-3xl text-lg text-gray-700 leading-relaxed">
-            Blynx Insurance Group advises individuals, families, and businesses
-            with complex risk profiles — situations that standard insurance
-            channels are not built to handle. When you have been denied or paying expensive premiums we will find the right insurance.
+            {/* Intentionally blank per your current design (no subheading text) */}
           </p>
 
-          <p className="mt-3 max-w-3xl text-lg text-gray-700 leading-relaxed">
-            We are not a volume-driven retail brokerage firm. We design and place
-            coverage using specialty markets, layered programs, and
+          <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
+            Complex insurance needs require a fixer with market access. A team
+            or problem solvers.
+          </h1>
+
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-700">
+            Blynx Insurance Group advises individuals, families, and businesses
+            with complex risk profiles — situations that standard insurance
+            channels are not built to handle. When you have been denied or
+            paying expensive premiums we will find the right insurance.
+          </p>
+
+          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-700">
+            We are not a volume-driven retail brokerage firm. We design and
+            place coverage using specialty markets, layered programs, and
             non-standard underwriting — with discretion and professionalism.
           </p>
 
@@ -45,7 +49,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-12">
           <h2 className="text-2xl font-semibold text-gray-900">Who We Serve</h2>
 
-          <p className="mt-3 max-w-3xl text-gray-700 leading-relaxed">
+          <p className="mt-3 max-w-3xl leading-relaxed text-gray-700">
             Our clients typically come to us after discovering that traditional
             brokers and direct-to-consumer platforms cannot place or structure
             their coverage appropriately.
@@ -54,9 +58,9 @@ export default function HomePage() {
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             <div className="rounded-2xl border border-gray-200 bg-white p-6">
               <h3 className="font-semibold text-gray-900">
-                High-Net-Worth Individuals & Families
+                High-Net-Worth Individuals &amp; Families
               </h3>
-              <p className="mt-3 text-gray-700 leading-relaxed">
+              <p className="mt-3 leading-relaxed text-gray-700">
                 Complex homes, multiple residences, specialty vehicles, personal
                 umbrella, unique liability exposures, and privacy concerns.
               </p>
@@ -64,9 +68,9 @@ export default function HomePage() {
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6">
               <h3 className="font-semibold text-gray-900">
-                Business Owners & Executives
+                Business Owners &amp; Executives
               </h3>
-              <p className="mt-3 text-gray-700 leading-relaxed">
+              <p className="mt-3 leading-relaxed text-gray-700">
                 Operating companies, holding entities, real estate portfolios,
                 cyber risk, executive liability, and layered coverage programs.
               </p>
@@ -74,7 +78,7 @@ export default function HomePage() {
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6">
               <h3 className="font-semibold text-gray-900">Hard-to-Insure Risks</h3>
-              <p className="mt-3 text-gray-700 leading-relaxed">
+              <p className="mt-3 leading-relaxed text-gray-700">
                 Prior claims history, specialty industries, non-standard assets,
                 emerging risks, or coverage gaps created by market tightening.
               </p>
@@ -92,15 +96,15 @@ export default function HomePage() {
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 Blynx operates with a deliberate focus on fewer clients, deeper
                 analysis, and broader market access — not quote volume.
               </p>
 
-              <p className="mt-3 text-gray-700 leading-relaxed">
-                We map the full risk picture — personal, corporate, and structural —
-                then build a placement strategy across carriers and programs
-                that most brokers cannot access.
+              <p className="mt-3 leading-relaxed text-gray-700">
+                We map the full risk picture — personal, corporate, and
+                structural — then build a placement strategy across carriers and
+                programs that most brokers cannot access.
               </p>
             </div>
 
@@ -122,24 +126,25 @@ export default function HomePage() {
             Coverage Categories
           </h2>
 
-          <p className="mt-3 max-w-3xl text-gray-700 leading-relaxed">
+          <p className="mt-3 max-w-3xl leading-relaxed text-gray-700">
             Select a category below to view the relevant product area.
           </p>
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <Link
               href="/products/business#commercial-property"
-              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
             >
               <h3 className="font-semibold text-gray-900">Commercial Property</h3>
               <p className="mt-3 text-sm text-gray-700">
-                Buildings, CAT exposure, coverage structure, and layered programs.
+                Buildings, CAT exposure, coverage structure, and layered
+                programs.
               </p>
             </Link>
 
             <Link
               href="/products/personal#auto"
-              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
             >
               <h3 className="font-semibold text-gray-900">Auto</h3>
               <p className="mt-3 text-sm text-gray-700">
@@ -149,7 +154,7 @@ export default function HomePage() {
 
             <Link
               href="/products/personal#home"
-              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
             >
               <h3 className="font-semibold text-gray-900">Home</h3>
               <p className="mt-3 text-sm text-gray-700">
@@ -159,7 +164,7 @@ export default function HomePage() {
 
             <Link
               href="/products/life-health"
-              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
             >
               <h3 className="font-semibold text-gray-900">Life &amp; Health</h3>
               <p className="mt-3 text-sm text-gray-700">
@@ -169,7 +174,7 @@ export default function HomePage() {
 
             <Link
               href="/products/business"
-              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
             >
               <h3 className="font-semibold text-gray-900">Business</h3>
               <p className="mt-3 text-sm text-gray-700">
@@ -179,7 +184,7 @@ export default function HomePage() {
 
             <Link
               href="/products/benefits"
-              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
             >
               <h3 className="font-semibold text-gray-900">Employee Benefits</h3>
               <p className="mt-3 text-sm text-gray-700">
