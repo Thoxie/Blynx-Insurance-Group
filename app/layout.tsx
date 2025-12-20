@@ -1,11 +1,5 @@
 // PATH: app/layout.tsx
 
-/**
- * Layout: Global Layout
- * Route: All pages
- * File: app/layout.tsx
- */
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
@@ -49,7 +43,7 @@ function Dropdown({
         {label}
       </button>
 
-      {/* HOVER GAP BRIDGE: prevents dropdown from collapsing when moving mouse down */}
+      {/* HOVER GAP BRIDGE: fixes “dead zone” for Products/Resources/About */}
       <div className="absolute left-0 top-full h-2 w-full" />
 
       <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition absolute left-0 top-full z-50 mt-2 w-[320px] rounded-2xl border border-gray-200 bg-white shadow-lg p-2">
@@ -144,17 +138,20 @@ export default function RootLayout({
 
                 <Dropdown label="About">
                   <div className="grid gap-1">
-                    {/* FIXED: /about was 404 because app/about/page.tsx did not exist */}
+                    {/* FIX: your route is /about-us, not /about */}
                     <DropdownItem
                       href="/about-us"
                       title="About Us"
                       desc="Approach, discretion, who we serve."
                     />
-                    <DropdownItem
+
+                    {/* Keep this ONLY if you actually have app/about-us/testimonials/page.tsx */}
+                    {/* <DropdownItem
                       href="/about-us/testimonials"
                       title="Testimonials"
                       desc="What clients say."
-                    />
+                    /> */}
+
                     <DropdownItem
                       href="/privacy"
                       title="Privacy Policy"
@@ -203,4 +200,3 @@ export default function RootLayout({
   );
 }
 
-                  
