@@ -13,13 +13,11 @@ export default function HomePage() {
     <main className="flex flex-col">
       {/* HERO */}
       <section className="border-b border-gray-200 bg-white">
-        {/* Tightened spacing (was py-20) */}
         <div className="mx-auto max-w-6xl px-6 pt-12 pb-12">
           <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
             Blynx Insurance Group
           </p>
 
-          {/* Keep tagline on homepage content */}
           <h1 className="mt-4 max-w-4xl text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
             Complex insurance needs require a fixer with market access.
           </h1>
@@ -31,21 +29,21 @@ export default function HomePage() {
           </p>
 
           <p className="mt-3 max-w-3xl text-lg text-gray-700 leading-relaxed">
-            We operate as an insurance advisory and placement firm, leveraging
-            deep carrier relationships, specialty markets, and non-standard
-            underwriting solutions to design coverage that actually works.
+            We are not a volume-driven retail brokerage. We design and place
+            coverage using specialty markets, layered programs, and
+            non-standard underwriting — with discretion and professionalism.
           </p>
 
           {/* Removed per instruction:
-              - Request a Quote button/box
-              - Our Approach button/box
+              - Request a Quote box/section
+              - Our Approach box/button
+              - Homepage CTA buttons
           */}
         </div>
       </section>
 
       {/* WHO WE SERVE */}
       <section className="border-b border-gray-200 bg-gray-50">
-        {/* Tightened spacing (was py-16) */}
         <div className="mx-auto max-w-6xl px-6 py-12">
           <h2 className="text-2xl font-semibold text-gray-900">Who We Serve</h2>
 
@@ -89,7 +87,6 @@ export default function HomePage() {
 
       {/* WHY BLYNX */}
       <section className="border-b border-gray-200 bg-white">
-        {/* Tightened spacing (was py-16) */}
         <div className="mx-auto max-w-6xl px-6 py-12">
           <h2 className="text-2xl font-semibold text-gray-900">
             Why Blynx Insurance Group
@@ -98,16 +95,14 @@ export default function HomePage() {
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div>
               <p className="text-gray-700 leading-relaxed">
-                We are not a volume-driven retail brokerage. Blynx operates with
-                a deliberate focus on fewer clients, deeper analysis, and
-                broader market access.
+                Blynx operates with a deliberate focus on fewer clients, deeper
+                analysis, and broader market access — not quote volume.
               </p>
 
               <p className="mt-3 text-gray-700 leading-relaxed">
-                Our role is to understand the full risk picture — personal,
-                corporate, and structural — then design and place insurance
-                solutions using carriers and programs that most brokers cannot
-                access.
+                We map the full risk picture — personal, corporate, and structural —
+                then build a placement strategy across carriers and programs
+                that most brokers cannot access.
               </p>
             </div>
 
@@ -122,44 +117,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PRODUCTS OVERVIEW */}
-      <section className="border-b border-gray-200 bg-gray-50">
-        {/* Tightened spacing (was py-16) */}
+      {/* PRODUCTS ROW (6 boxes) - FINAL STEP */}
+      <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-6 py-12">
           <h2 className="text-2xl font-semibold text-gray-900">
-            Insurance Solutions
+            Coverage Categories
           </h2>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-4">
+          <p className="mt-3 max-w-3xl text-gray-700 leading-relaxed">
+            Select a category below to view the relevant product area.
+          </p>
+
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <Link
-              href="/products/personal"
+              href="/products/business#commercial-property"
               className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
             >
-              <h3 className="font-semibold text-gray-900">Personal Insurance</h3>
-              <p className="mt-3 text-gray-700 text-sm">
-                Home, auto, umbrella, specialty assets, and personal liability
-                strategies.
+              <h3 className="font-semibold text-gray-900">Commercial Property</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Buildings, CAT exposure, coverage structure, and layered programs.
               </p>
             </Link>
 
             <Link
-              href="/products/business"
+              href="/products/personal#auto"
               className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
             >
-              <h3 className="font-semibold text-gray-900">Business Insurance</h3>
-              <p className="mt-3 text-gray-700 text-sm">
-                Property, liability, cyber, executive risk, and complex
-                commercial programs.
+              <h3 className="font-semibold text-gray-900">Auto</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Specialty vehicles, higher limits, and complex underwriting.
               </p>
             </Link>
 
             <Link
-              href="/products/benefits"
+              href="/products/personal#home"
               className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
             >
-              <h3 className="font-semibold text-gray-900">Employee Benefits</h3>
-              <p className="mt-3 text-gray-700 text-sm">
-                Group health, benefits strategy, and cost-containment solutions.
+              <h3 className="font-semibold text-gray-900">Home</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                High-value homes, multiple residences, and property complexities.
               </p>
             </Link>
 
@@ -168,29 +164,31 @@ export default function HomePage() {
               className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
             >
               <h3 className="font-semibold text-gray-900">Life &amp; Health</h3>
-              <p className="mt-3 text-gray-700 text-sm">
-                Life insurance, disability, long-term care, and advanced
-                planning.
+              <p className="mt-3 text-sm text-gray-700">
+                Life, disability, long-term care, and advanced planning.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/business"
+              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+            >
+              <h3 className="font-semibold text-gray-900">Business</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Liability, cyber, executive risk, and program design.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/benefits"
+              className="rounded-2xl border border-gray-200 bg-white p-6 hover:bg-gray-50 transition"
+            >
+              <h3 className="font-semibold text-gray-900">Employee Benefits</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Group health and benefits strategy for teams and leadership.
               </p>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* CTA (text only; no button) */}
-      <section className="bg-white">
-        {/* Tightened spacing (was py-20) */}
-        <div className="mx-auto max-w-6xl px-6 py-12 text-center">
-          <h2 className="text-3xl font-semibold text-gray-900">
-            Let’s solve what others couldn’t.
-          </h2>
-
-          <p className="mt-3 max-w-2xl mx-auto text-gray-700 text-lg">
-            If your insurance situation requires deeper analysis, broader market
-            access, or a different level of discretion, we should talk.
-          </p>
-
-          {/* Removed per instruction: no buttons in homepage content */}
         </div>
       </section>
     </main>
