@@ -1,218 +1,133 @@
-// PATH: app/page.tsx
+// PATH: app/products/page.tsx
 
 /**
- * Page: Home
- * Route: /
- * File: app/page.tsx
+ * Page: Products
+ * Route: /products
+ * File: app/products/page.tsx
  */
 
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HomePage() {
+export const metadata: Metadata = {
+  title: "Products | Blynx Insurance Group",
+  description:
+    "Explore personal, business, employee benefits, and life & health insurance solutions from Blynx Insurance Group.",
+};
+
+const cards = [
+  {
+    title: "Commercial Property",
+    desc: "Buildings, CAT exposure, coverage structure, and layered programs.",
+    href: "/products/business#commercial-property",
+    img: "/images/products/commercial-property.jpeg",
+    tagline: "Coverage design for buildings, portfolios, and layered exposure.",
+  },
+  {
+    title: "Auto",
+    desc: "Specialty vehicles, higher limits, and complex underwriting.",
+    href: "/products/personal#auto",
+    img: "/images/products/auto-exotics.webp",
+    tagline: "High-limit auto built for specialty and high-value vehicles.",
+  },
+  {
+    title: "Home",
+    desc: "High-value homes, multiple residences, and property complexities.",
+    href: "/products/personal#home",
+    img: "/images/products/home-luxury.webp",
+    tagline: "High-value home coverage placed correctly—without retail quoting.",
+  },
+  {
+    title: "Life & Health",
+    desc: "Life, disability, long-term care, and advanced planning.",
+    href: "/products/life-health",
+    img: "/images/products/life-health-consult.jpg",
+    tagline: "Planning-driven coverage for life, disability, and long-term care.",
+  },
+  {
+    title: "Business",
+    desc: "Liability, cyber, executive risk, and program design.",
+    href: "/products/business",
+    img: "/images/products/business-boardroom.jpg",
+    tagline: "Program design for operational, liability, and executive exposures.",
+  },
+  {
+    title: "Employee Benefits",
+    desc: "Group health and benefits strategy for teams and leadership.",
+    href: "/products/benefits",
+    img: "/images/products/employee-benefits-meeting.jpeg",
+    tagline: "Benefits strategy designed for retention, risk, and cost control.",
+  },
+];
+
+export default function ProductsPage() {
   return (
-    <main className="flex flex-col">
-      {/* HERO */}
-      <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-6xl px-6 pb-12 pt-12">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            {/* Left: Copy */}
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {/* Intentionally blank */}
-              </p>
+    <main className="mx-auto max-w-6xl px-6 py-14">
+      <header className="mb-10">
+        <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+          Products
+        </p>
 
-              <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
-                Complex insurance needs require a fixer with market access. A
-                team of problem solvers. Save time, best rates and get specialized access - Go with BLYNX
-              </h1>
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
+          Coverage built around exposure, not assumptions.
+        </h1>
 
-              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-700">
-                Blynx Insurance Group advises individuals, families, and
-                businesses with complex risk profiles — situations that standard
-                insurance channels are not built to handle. When you have been
-                denied or paying expensive premiums we will find the right
-                insurance.
-              </p>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gray-700">
+          Blynx helps clients place coverage across commercial property, personal
+          lines, business risk, employee benefits, and life &amp; health—designed
+          for complex risk profiles and non-standard underwriting.
+        </p>
 
-              <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-700">
-                We are not a volume-driven retail brokerage firm. We design and
-                place coverage using specialty markets, layered programs, and
-                non-standard underwriting — with discretion and professionalism.
-              </p>
-            </div>
+        {/* HERO IMAGE (Products landing) */}
+        <div className="mt-8">
+          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+            <Image
+              src="/images/Products/products-hero.jpeg"
+              alt="Blynx Insurance Group products overview"
+              width={1600}
+              height={900}
+              className="h-auto w-full object-cover"
+              priority
+            />
+          </div>
+          <p className="mt-3 text-xs text-gray-500">
+            Category-led coverage strategy—built for complexity and discretion.
+          </p>
+        </div>
+      </header>
 
-            {/* Right: Hero image */}
-            <div className="relative">
-              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+      {/* CATEGORY CARDS */}
+      <section className="grid gap-6 md:grid-cols-2">
+        {cards.map((c) => (
+          <Link
+            key={c.title}
+            href={c.href}
+            className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+          >
+            <div className="flex flex-col gap-4">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900">{c.title}</h2>
+                <p className="mt-2 leading-relaxed text-gray-700">{c.desc}</p>
+              </div>
+
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
                 <Image
-                  src="/images/hero-meeting.jpg.webp"
-                  alt="Blynx Insurance Group meeting with a senior advisor presenting coverage strategy"
+                  src={c.img}
+                  alt={`${c.title} coverage`}
                   width={1600}
                   height={900}
                   className="h-auto w-full object-cover"
-                  priority
                 />
               </div>
 
-              <p className="mt-3 text-xs text-gray-500">
-                Advisory-led placement strategy for complex risk.
-              </p>
+              <p className="text-xs text-gray-500">{c.tagline}</p>
+
+              <div className="text-sm font-semibold underline">Explore →</div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHO WE SERVE */}
-      <section className="border-b border-gray-200 bg-gray-50">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <h2 className="text-2xl font-semibold text-gray-900">Who We Serve</h2>
-
-          <p className="mt-3 max-w-3xl leading-relaxed text-gray-700">
-            Our clients typically come to us after discovering that traditional
-            brokers and direct-to-consumer platforms cannot place or structure
-            their coverage appropriately.
-          </p>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-gray-200 bg-white p-6">
-              <h3 className="font-semibold text-gray-900">
-                High-Net-Worth Individuals &amp; Families
-              </h3>
-              <p className="mt-3 leading-relaxed text-gray-700">
-                Complex homes, multiple residences, specialty vehicles, personal
-                umbrella, unique liability exposures, and privacy concerns.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6">
-              <h3 className="font-semibold text-gray-900">
-                Business Owners &amp; Executives
-              </h3>
-              <p className="mt-3 leading-relaxed text-gray-700">
-                Operating companies, holding entities, real estate portfolios,
-                cyber risk, executive liability, and layered coverage programs.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6">
-              <h3 className="font-semibold text-gray-900">Hard-to-Insure Risks</h3>
-              <p className="mt-3 leading-relaxed text-gray-700">
-                Prior claims history, specialty industries, non-standard assets,
-                emerging risks, or coverage gaps created by market tightening.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY BLYNX */}
-      <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Why Blynx Insurance Group
-          </h2>
-
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <div>
-              <p className="leading-relaxed text-gray-700">
-                Blynx operates with a deliberate focus on fewer clients, deeper
-                analysis, and broader market access — not quote volume.
-              </p>
-
-              <p className="mt-3 leading-relaxed text-gray-700">
-                We map the full risk picture — personal, corporate, and
-                structural — then build a placement strategy across carriers and
-                programs that most brokers cannot access.
-              </p>
-            </div>
-
-            <ul className="space-y-3 text-gray-700">
-              <li>• Access to specialty and excess markets</li>
-              <li>• Strategic program design, not policy quoting</li>
-              <li>• Carrier-agnostic advisory approach</li>
-              <li>• Discretion, privacy, and professionalism</li>
-              <li>• Experience with complex and layered risks</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS ROW (6 boxes) */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Coverage Categories
-          </h2>
-
-          <p className="mt-3 max-w-3xl leading-relaxed text-gray-700">
-            Select a category below to view the relevant product area.
-          </p>
-
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <Link
-              href="/products/business#commercial-property"
-              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
-            >
-              <h3 className="font-semibold text-gray-900">Commercial Property</h3>
-              <p className="mt-3 text-sm text-gray-700">
-                Buildings, CAT exposure, coverage structure, and layered programs.
-              </p>
-            </Link>
-
-            <Link
-              href="/products/personal#auto"
-              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
-            >
-              <h3 className="font-semibold text-gray-900">Auto</h3>
-              <p className="mt-3 text-sm text-gray-700">
-                Specialty vehicles, higher limits, and complex underwriting.
-              </p>
-            </Link>
-
-            <Link
-              href="/products/personal#home"
-              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
-            >
-              <h3 className="font-semibold text-gray-900">Home</h3>
-              <p className="mt-3 text-sm text-gray-700">
-                High-value homes, multiple residences, and property complexities.
-              </p>
-            </Link>
-
-            <Link
-              href="/products/life-health"
-              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
-            >
-              <h3 className="font-semibold text-gray-900">Life &amp; Health</h3>
-              <p className="mt-3 text-sm text-gray-700">
-                Life, disability, long-term care, and advanced planning.
-              </p>
-            </Link>
-
-            <Link
-              href="/products/business"
-              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
-            >
-              <h3 className="font-semibold text-gray-900">Business</h3>
-              <p className="mt-3 text-sm text-gray-700">
-                Liability, cyber, executive risk, and program design.
-              </p>
-            </Link>
-
-            <Link
-              href="/products/benefits"
-              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
-            >
-              <h3 className="font-semibold text-gray-900">Employee Benefits</h3>
-              <p className="mt-3 text-sm text-gray-700">
-                Group health and benefits strategy for teams and leadership.
-              </p>
-            </Link>
-          </div>
-        </div>
+          </Link>
+        ))}
       </section>
     </main>
   );
 }
-
