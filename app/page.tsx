@@ -31,7 +31,7 @@ export default function HomePage() {
                 businesses with complex risk profiles — situations that standard
                 insurance channels are not built to handle. When you have been
                 denied or paying expensive premiums we will find the right
-                insurance.
+                insurance. Get BLYNX.
               </p>
 
               <p className="mt-3 max-w-xl text-lg leading-relaxed text-gray-700">
