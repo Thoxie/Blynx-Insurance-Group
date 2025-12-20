@@ -4,99 +4,76 @@
  * File: app/products/benefits/page.tsx
  */
 
-import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Employee Benefits | Blynx Insurance Group",
-  description:
-    "Employee benefits strategy and placement—group health and benefits design aligned to your workforce and budget.",
-};
-
-const items = [
-  {
-    title: "Group Health Strategy",
-    desc: "Plan design aligned to hiring goals, retention, and cost control.",
-  },
-  {
-    title: "Dental & Vision",
-    desc: "Complementary benefits structured for adoption and satisfaction.",
-  },
-  {
-    title: "Disability",
-    desc: "Income protection strategy aligned to role risk and workforce profile.",
-  },
-  {
-    title: "Benefits Administration Support",
-    desc: "Operational help selecting structures that reduce friction at renewal.",
-  },
-];
-
-export default function BenefitsPage() {
+export default function EmployeeBenefitsPage() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-14">
+    <main className="mx-auto max-w-6xl px-6 py-14">
       <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+        <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+          Products
+        </p>
+        <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
           Employee Benefits
         </h1>
-        <p className="mt-4 text-lg text-gray-700 max-w-3xl">
-          Benefits are a talent instrument and a cost center. We build a benefits
-          strategy that makes sense on paper—and works in real life.
+        <p className="mt-4 max-w-3xl text-lg text-gray-700 leading-relaxed">
+          Benefits are an operating decision: retention, cost control, and
+          employee experience. We help businesses structure benefits that work
+          financially and competitively.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/quote"
-            className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+            className="rounded-xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 transition"
           >
-            Get a Quote
+            Request a Quote
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
+            className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
           >
-            Request a call
+            Ask a question
           </Link>
         </div>
       </header>
 
-      <section className="grid gap-4">
-        {items.map((x) => (
-          <div
-            key={x.title}
-            className="rounded-2xl border border-gray-200 bg-white p-6"
-          >
-            <h2 className="text-lg font-semibold">{x.title}</h2>
-            <p className="mt-3 text-gray-700 leading-relaxed">{x.desc}</p>
-          </div>
-        ))}
+      <section className="grid gap-6 md:grid-cols-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <h2 className="font-semibold text-gray-900">Group Health</h2>
+          <p className="mt-3 text-gray-700 leading-relaxed">
+            Plan design, renewals, carrier negotiations, and employee experience.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <h2 className="font-semibold text-gray-900">Voluntary Benefits</h2>
+          <p className="mt-3 text-gray-700 leading-relaxed">
+            Supplemental plans that improve retention without uncontrolled costs.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <h2 className="font-semibold text-gray-900">Cost Containment</h2>
+          <p className="mt-3 text-gray-700 leading-relaxed">
+            Strategies to control trend without cutting value or morale.
+          </p>
+        </div>
       </section>
 
-      <section className="mt-6">
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">How we start</h2>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 text-gray-700">
-            <li>
-              <span className="font-semibold text-gray-900">Snapshot:</span>{" "}
-              headcount, eligibility, current spend, renewal timing.
-            </li>
-            <li>
-              <span className="font-semibold text-gray-900">Design:</span>{" "}
-              plan options aligned to goals and budget.
-            </li>
-            <li>
-              <span className="font-semibold text-gray-900">Placement:</span>{" "}
-              carrier options and implementation plan.
-            </li>
-          </ol>
-          <div className="mt-4">
-            <Link href="/quote" className="underline font-semibold">
-              Start a quote request →
-            </Link>
-          </div>
+      <section className="mt-10 rounded-2xl border border-gray-200 bg-gray-50 p-6">
+        <h3 className="font-semibold text-gray-900">Outcome-driven approach</h3>
+        <p className="mt-4 text-gray-700 leading-relaxed max-w-4xl">
+          We evaluate current plan performance, renewal pressures, and market
+          options, then recommend a strategy that fits your headcount, budget,
+          and hiring goals.
+        </p>
+        <div className="mt-5">
+          <Link href="/quote" className="underline font-semibold">
+            Start a benefits request →
+          </Link>
         </div>
       </section>
     </main>
   );
 }
-
