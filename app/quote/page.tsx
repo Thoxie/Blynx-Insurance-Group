@@ -1,201 +1,144 @@
 // PATH: app/quote/page.tsx
 
+"use client";
+
 /**
- * Page: Get a Quote (Guided Intake)
+ * Page: Quote / Intake
  * Route: /quote
  * File: app/quote/page.tsx
  */
 
-"use client";
-
 import { useMemo, useState } from "react";
-import Link from "next/link";
 
-type Line = "Personal" | "Business" | "Employee Benefits" | "Life & Health";
-type Step = 1 | 2 | 3;
-type Status = "idle" | "submitted";
+type ProductLine =
+  | "Commercial Property"
+  | "Auto"
+  | "Home"
+  | "Life & Health"
+  | "Business"
+  | "Employee Benefits";
 
-type FormState = {
-  line: Line | "";
-  urgency: "" | "ASAP (0–3 days)" | "Soon (1–2 weeks)" | "Not urgent (30+ days)";
-  situation: string;
-  details: string;
-
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-
-  preferredContact: "" | "Email" | "Phone" | "Text";
-  bestTime: "" | "Morning" | "Afternoon" | "Evening";
-  state: string; // US state
-};
-
-const LINES: Line[] = ["Personal", "Business", "Employee Benefits", "Life & Health"];
+type BestTime =
+  | "Morning"
+  | "Afternoon"
+  | "Evening"
+  | "Anytime"
+  | "Text only";
 
 export default function QuotePage() {
-  const [step, setStep] = useState<Step>(1);
-  const [status, setStatus] = useState<Status>("idle");
+  const [productLine, setProductLine] = useState<ProductLine | "">("");
+  const [state, setState] = useState<string>("");
+  const [needTiming, setNeedTiming] = useState<"ASAP" | "Soon" | "Exploring">(
+    "Soon"
+  );
 
-  const [form, setForm] = useState<FormState>({
-    line: "",
-    urgency: "",
-    situation: "",
-    details: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    preferredContact: "",
-    bestTime: "",
-    state: "",
-  });
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [company, setCompany] = useState<string>("");
 
-  const situationOptions = useMemo(() => {
-    switch (form.line) {
-      case "Personal":
-        return [
-          "High-value home / multiple homes",
-          "Specialty auto / higher limits",
-          "Umbrella / liability structure",
-          "Prior losses / non-renewal",
-          "Hard-to-place / unusual exposure",
-          "Other",
-        ];
-      case "Business":
-        return [
-          "Commercial property placement",
-          "General liability / contract requirements",
-          "Cyber / executive risk",
-          "Layered limits / excess program design",
-          "Prior losses / market tightening",
-          "Other",
-        ];
-      case "Employee Benefits":
-        return [
-          "New benefits program",
-          "Renewal strategy / cost control",
-          "Plan design & carrier fit",
-          "Enrollment/admin cleanup",
-          "Voluntary benefits strategy",
-          "Other",
-        ];
-      case "Life & Health":
-        return [
-          "Life insurance planning",
-          "Disability / income protection",
-          "Long-term care planning",
-          "Business continuity coverage",
-          "Underwriting complexity / time-sensitive",
-          "Other",
-        ];
-      default:
-        return [];
+  const [bestTime, setBestTime] = useState<BestTime>("Anytime");
+  const [contactMethod, setContactMethod] = useState<"Email" | "Phone" | "Text">(
+    "Email"
+  );
+
+  const [hasPriorDenial, setHasPriorDenial] = useState<"Yes" | "No" | "Not sure">(
+    "Not sure"
+  );
+  const [claimsHistory, setClaimsHistory] = useState<
+    "None"
+    | "1 claim"
+    | "2–3 claims"
+    | "4+ claims"
+    | "Not sure / prefer not to say"
+  >("Not sure / prefer not to say");
+
+  const [notes, setNotes] = useState<string>("");
+
+  // Optional: simple, context-sensitive prompts based on product selection
+  const productPrompts = useMemo(() => {
+    const common = [
+      "What’s changed recently (carrier non-renewal, denial, major purchase, new location, etc.)?",
+      "Any time constraints or deadlines (closing date, lender requirement, renewal date)?",
+    ];
+
+    const byLine: Record<ProductLine, string[]> = {
+      "Commercial Property": [
+        "Property type (office, retail, mixed-use, industrial) and number of locations?",
+        "Any vacancy, redevelopment plans, or unusual exposures (older systems, prior losses, coastal/wind, etc.)?",
+      ],
+      Auto: [
+        "Personal or commercial auto? Any specialty vehicles (exotic, collector, high-performance)?",
+        "Drivers count and any recent tickets/incidents (approximate is fine)?",
+      ],
+      Home: [
+        "Primary residence or additional residences? Coastal/wildfire exposure?",
+        "Any prior claims, renovations, or unique features (pool, detached structures, high-value contents)?",
+      ],
+      "Life & Health": [
+        "Life, disability, LTC, or health/medical? Individual or group?",
+        "Any underwriting complexity you’re aware of (medical history, high-risk occupation, travel, etc.)?",
+      ],
+      Business: [
+        "Industry and size (rough revenue/headcount)? Key coverages needed (GL, PL, cyber, D&O, E&O)?",
+        "Any contracts requiring specific limits/additional insured wording?",
+      ],
+      "Employee Benefits": [
+        "Headcount and state(s) of employees? Fully insured vs level-funded vs self-funded preference?",
+        "Any renewal pressure (large increases, participation issues, plan design constraints)?",
+      ],
+    };
+
+    if (!productLine) return common;
+
+    return [...byLine[productLine], ...common];
+  }, [productLine]);
+
+  const summary = useMemo(() => {
+    const lines: string[] = [];
+
+    lines.push(`Product line: ${productLine || "(not selected)"}`);
+    lines.push(`State: ${state || "(not selected)"}`);
+    lines.push(`Need timing: ${needTiming}`);
+    lines.push("");
+    lines.push(`Name: ${firstName} ${lastName}`.trim() || "Name: (not provided)");
+    lines.push(`Company: ${company || "(not provided)"}`);
+    lines.push(`Email: ${email || "(not provided)"}`);
+    lines.push(`Phone: ${phone || "(not provided)"}`);
+    lines.push(`Preferred contact: ${contactMethod}`);
+    lines.push(`Best time: ${bestTime}`);
+    lines.push("");
+    lines.push(`Prior denial/non-renewal: ${hasPriorDenial}`);
+    lines.push(`Claims history: ${claimsHistory}`);
+    lines.push("");
+    lines.push("Notes:");
+    lines.push(notes || "(none)");
+
+    return lines.join("\n");
+  }, [
+    productLine,
+    state,
+    needTiming,
+    firstName,
+    lastName,
+    company,
+    email,
+    phone,
+    contactMethod,
+    bestTime,
+    hasPriorDenial,
+    claimsHistory,
+    notes,
+  ]);
+
+  async function copySummary() {
+    try {
+      await navigator.clipboard.writeText(summary);
+      alert("Copied intake summary to clipboard.");
+    } catch {
+      alert("Could not copy automatically. You can manually copy from the Summary box.");
     }
-  }, [form.line]);
-
-  const canGoStep2 = form.line !== "" && form.urgency !== "";
-  const canGoStep3 = form.situation !== "";
-
-  const contactValid =
-    form.firstName.trim() &&
-    form.lastName.trim() &&
-    form.email.trim() &&
-    form.preferredContact !== "";
-
-  function set<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  }
-
-  function next() {
-    if (step === 1 && !canGoStep2) return;
-    if (step === 2 && !canGoStep3) return;
-    setStep((prev) => (prev === 3 ? 3 : ((prev + 1) as Step)));
-  }
-
-  function back() {
-    setStep((prev) => (prev === 1 ? 1 : ((prev - 1) as Step)));
-  }
-
-  function submit() {
-    if (!contactValid) return;
-    setStatus("submitted");
-  }
-
-  if (status === "submitted") {
-    return (
-      <main className="mx-auto max-w-3xl px-6 py-14">
-        <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-          Get a Quote
-        </p>
-        <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
-          Intake received.
-        </h1>
-        <p className="mt-4 text-lg text-gray-700 leading-relaxed">
-          Thank you. This is a confirmation screen for now (we’ll add delivery
-          routing next). If you need to reach us immediately, use Contact.
-        </p>
-
-        <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="text-base font-semibold text-gray-900">Summary</h2>
-          <div className="mt-3 grid gap-2 text-sm text-gray-700">
-            <div>
-              <span className="font-semibold text-gray-900">Line:</span>{" "}
-              {form.line || "—"}
-            </div>
-            <div>
-              <span className="font-semibold text-gray-900">Urgency:</span>{" "}
-              {form.urgency || "—"}
-            </div>
-            <div>
-              <span className="font-semibold text-gray-900">Situation:</span>{" "}
-              {form.situation || "—"}
-            </div>
-            {form.details?.trim() ? (
-              <div>
-                <span className="font-semibold text-gray-900">Details:</span>{" "}
-                {form.details}
-              </div>
-            ) : null}
-            <div>
-              <span className="font-semibold text-gray-900">Name:</span>{" "}
-              {form.firstName} {form.lastName}
-            </div>
-            <div>
-              <span className="font-semibold text-gray-900">Email:</span>{" "}
-              {form.email}
-            </div>
-            {form.phone?.trim() ? (
-              <div>
-                <span className="font-semibold text-gray-900">Phone:</span>{" "}
-                {form.phone}
-              </div>
-            ) : null}
-            <div>
-              <span className="font-semibold text-gray-900">
-                Preferred contact:
-              </span>{" "}
-              {form.preferredContact}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/contact"
-            className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
-          >
-            Go to Contact
-          </Link>
-          <Link
-            href="/"
-            className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
-          >
-            Back to Home
-          </Link>
-        </div>
-      </main>
-    );
   }
 
   return (
@@ -204,149 +147,247 @@ export default function QuotePage() {
         Get a Quote
       </p>
 
-      <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
-        Guided Intake
+      <h1 className="mt-3 text-3xl font-semibold tracking-tight text-gray-900">
+        Intake
       </h1>
 
-      <p className="mt-4 text-lg text-gray-700 leading-relaxed">
-        This intake is designed for complex placements. Select the closest match
-        and add context where helpful.
+      <p className="mt-4 text-gray-700 leading-relaxed">
+        This is a short intake to help Blynx structure the right placement
+        strategy. Use dropdowns where possible. If you’ve been denied,
+        non-renewed, or are paying expensive premiums, include that below.
       </p>
 
-      <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6">
-        {/* Step indicator */}
-        <div className="flex items-center justify-between text-sm">
-          <div className="font-semibold text-gray-900">Step {step} of 3</div>
-          <div className="text-gray-500">
-            {step === 1
-              ? "Category"
-              : step === 2
-              ? "Situation"
-              : "Contact"}
+      {/* FORM */}
+      <section className="mt-10 rounded-2xl border border-gray-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-gray-900">Basics</h2>
+
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-gray-900">Product line</span>
+            <select
+              className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+              value={productLine}
+              onChange={(e) => setProductLine(e.target.value as ProductLine)}
+            >
+              <option value="">Select…</option>
+              <option value="Commercial Property">Commercial Property</option>
+              <option value="Auto">Auto</option>
+              <option value="Home">Home</option>
+              <option value="Life & Health">Life &amp; Health</option>
+              <option value="Business">Business</option>
+              <option value="Employee Benefits">Employee Benefits</option>
+            </select>
+          </label>
+
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-gray-900">State</span>
+            <input
+              className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              placeholder="e.g., CA"
+            />
+          </label>
+
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-gray-900">How soon do you need coverage?</span>
+            <select
+              className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+              value={needTiming}
+              onChange={(e) =>
+                setNeedTiming(e.target.value as "ASAP" | "Soon" | "Exploring")
+              }
+            >
+              <option value="ASAP">ASAP (days)</option>
+              <option value="Soon">Soon (1–3 weeks)</option>
+              <option value="Exploring">Exploring options</option>
+            </select>
+          </label>
+
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-gray-900">Prior denial / non-renewal?</span>
+            <select
+              className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+              value={hasPriorDenial}
+              onChange={(e) =>
+                setHasPriorDenial(e.target.value as "Yes" | "No" | "Not sure")
+              }
+            >
+              <option value="Not sure">Not sure</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="mt-10 border-t border-gray-200 pt-8">
+          <h2 className="text-lg font-semibold text-gray-900">Contact</h2>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-gray-900">First name</span>
+              <input
+                className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-gray-900">Last name</span>
+              <input
+                className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Last"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-gray-900">Email</span>
+              <input
+                className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@domain.com"
+                inputMode="email"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-gray-900">Phone</span>
+              <input
+                className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="(###) ###-####"
+                inputMode="tel"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-gray-900">Company (optional)</span>
+              <input
+                className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                placeholder="Company name"
+              />
+            </label>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="grid gap-2">
+                <span className="text-sm font-medium text-gray-900">Preferred contact</span>
+                <select
+                  className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                  value={contactMethod}
+                  onChange={(e) =>
+                    setContactMethod(e.target.value as "Email" | "Phone" | "Text")
+                  }
+                >
+                  <option value="Email">Email</option>
+                  <option value="Phone">Phone</option>
+                  <option value="Text">Text</option>
+                </select>
+              </label>
+
+              <label className="grid gap-2">
+                <span className="text-sm font-medium text-gray-900">Best time</span>
+                <select
+                  className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                  value={bestTime}
+                  onChange={(e) => setBestTime(e.target.value as BestTime)}
+                >
+                  <option value="Anytime">Anytime</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Evening">Evening</option>
+                  <option value="Text only">Text only</option>
+                </select>
+              </label>
+            </div>
           </div>
         </div>
 
-        {/* STEP 1 */}
-        {step === 1 ? (
-          <div className="mt-6 grid gap-5">
-            <div>
-              <label className="block text-sm font-semibold text-gray-900">
-                What do you need?
-              </label>
-              <select
-                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
-                value={form.line}
-                onChange={(e) => {
-                  const v = e.target.value as Line | "";
-                  set("line", v);
-                  set("situation", "");
-                }}
-              >
-                <option value="">Select one…</option>
-                {LINES.map((l) => (
-                  <option key={l} value={l}>
-                    {l}
-                  </option>
-                ))}
-              </select>
-            </div>
+        <div className="mt-10 border-t border-gray-200 pt-8">
+          <h2 className="text-lg font-semibold text-gray-900">Risk context</h2>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-900">
-                Urgency
-              </label>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-gray-900">Claims history</span>
               <select
-                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
-                value={form.urgency}
+                className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+                value={claimsHistory}
                 onChange={(e) =>
-                  set(
-                    "urgency",
-                    e.target.value as FormState["urgency"]
+                  setClaimsHistory(
+                    e.target.value as
+                      | "None"
+                      | "1 claim"
+                      | "2–3 claims"
+                      | "4+ claims"
+                      | "Not sure / prefer not to say"
                   )
                 }
               >
-                <option value="">Select one…</option>
-                <option value="ASAP (0–3 days)">ASAP (0–3 days)</option>
-                <option value="Soon (1–2 weeks)">Soon (1–2 weeks)</option>
-                <option value="Not urgent (30+ days)">Not urgent (30+ days)</option>
+                <option value="Not sure / prefer not to say">
+                  Not sure / prefer not to say
+                </option>
+                <option value="None">None</option>
+                <option value="1 claim">1 claim</option>
+                <option value="2–3 claims">2–3 claims</option>
+                <option value="4+ claims">4+ claims</option>
               </select>
-            </div>
+            </label>
 
-            {!canGoStep2 ? (
-              <div className="text-sm text-gray-500">
-                Select a category and urgency to continue.
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-
-        {/* STEP 2 */}
-        {step === 2 ? (
-          <div className="mt-6 grid gap-5">
-            <div>
-              <label className="block text-sm font-semibold text-gray-900">
-                Situation
-              </label>
-              <select
-                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
-                value={form.situation}
-                onChange={(e) => set("situation", e.target.value)}
-              >
-                <option value="">Select one…</option>
-                {situationOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <p className="text-sm font-semibold text-gray-900">
+                Helpful prompts{productLine ? ` (${productLine})` : ""}
+              </p>
+              <ul className="mt-2 space-y-2 text-sm text-gray-700">
+                {productPrompts.map((p) => (
+                  <li key={p}>• {p}</li>
                 ))}
-              </select>
+              </ul>
             </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-900">
-                Details (optional)
-              </label>
-              <textarea
-                className="mt-2 w-full min-h-[120px] rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
-                placeholder="Example: renewal date, prior non-renewal, asset type/value range, contractual limits, timeline, etc."
-                value={form.details}
-                onChange={(e) => set("details", e.target.value)}
-              />
-            </div>
-
-            {!canGoStep3 ? (
-              <div className="text-sm text-gray-500">
-                Select a situation to continue.
-              </div>
-            ) : null}
           </div>
-        ) : null}
 
-        {/* STEP 3 */}
-        {step === 3 ? (
-          <div className="mt-6 grid gap-5">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="block text-sm font-semibold text-gray-900">
-                  First name
-                </label>
-                <input
-                  className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
-                  value={form.firstName}
-                  onChange={(e) => set("firstName", e.target.value)}
-                />
-              </div>
+          <label className="mt-5 grid gap-2">
+            <span className="text-sm font-medium text-gray-900">
+              Notes (what’s going on / what do you need?)
+            </span>
+            <textarea
+              className="min-h-[130px] rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Include denial/non-renewal details, deadlines, assets/operations, limits requested, and anything unusual."
+            />
+          </label>
+        </div>
+      </section>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-900">
-                  Last name
-                </label>
-                <input
-                  className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
-                  value={form.lastName}
-                  onChange={(e) => set("lastName", e.target.value)}
-                />
-              </div>
-            </div>
+      {/* SUMMARY */}
+      <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">Summary</h2>
 
-            <div>
-              <label className="block text-sm font
+          <button
+            type="button"
+            onClick={copySummary}
+            className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+          >
+            Copy Summary
+          </button>
+        </div>
+
+        <p className="mt-2 text-sm text-gray-600">
+          Copy/paste this into an email or message.
+        </p>
+
+        <pre className="mt-4 whitespace-pre-wrap rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-900">
+{summary}
+        </pre>
+      </section>
+    </main>
+  );
+}
