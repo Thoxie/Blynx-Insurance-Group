@@ -1,3 +1,5 @@
+// PATH: app/layout.tsx
+
 /**
  * Layout: Global Layout
  * Route: All pages
@@ -47,6 +49,12 @@ function Dropdown({
         {label}
       </button>
 
+      {/*
+        Hover-bridge: prevents the dropdown from collapsing when moving the mouse
+        from the top-level button down into the menu (fixes the “hover gap” issue).
+      */}
+      <div className="absolute left-0 top-full h-2 w-full" />
+
       <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition absolute left-0 top-full z-50 mt-2 w-[320px] rounded-2xl border border-gray-200 bg-white shadow-lg p-2">
         {children}
       </div>
@@ -89,7 +97,7 @@ export default function RootLayout({
                 Blynx Insurance Group
               </Link>
               <span className="hidden md:inline text-xs text-gray-500">
-                Complex insurance needs require broader market access.
+                Complex insurance needs require a fixer with market access.
               </span>
             </div>
 
