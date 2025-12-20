@@ -1,4 +1,4 @@
-// PATH: app/layout.tsx
+ // PATH: app/layout.tsx
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -83,13 +83,14 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col text-gray-900">
         <header className="border-b border-gray-200 px-6 py-4">
           <div className="mx-auto max-w-6xl flex items-center justify-between gap-4">
+            {/* LOGO / BRAND */}
             <div className="flex items-center gap-3">
               <Link href="/" className="font-bold tracking-tight text-base">
                 Blynx Insurance Group
               </Link>
-              <span className="hidden md:inline text-xs text-gray-500">
-                Complex insurance needs require a fixer with market access.
-              </span>
+
+              {/* REMOVED per instruction:
+                  "Complex insurance needs require broader market access." */}
             </div>
 
             <div className="flex items-center gap-2">
@@ -138,20 +139,11 @@ export default function RootLayout({
 
                 <Dropdown label="About">
                   <div className="grid gap-1">
-                    {/* FIX: your route is /about-us, not /about */}
                     <DropdownItem
                       href="/about-us"
                       title="About Us"
                       desc="Approach, discretion, who we serve."
                     />
-
-                    {/* Keep this ONLY if you actually have app/about-us/testimonials/page.tsx */}
-                    {/* <DropdownItem
-                      href="/about-us/testimonials"
-                      title="Testimonials"
-                      desc="What clients say."
-                    /> */}
-
                     <DropdownItem
                       href="/privacy"
                       title="Privacy Policy"
@@ -199,4 +191,3 @@ export default function RootLayout({
     </html>
   );
 }
-
