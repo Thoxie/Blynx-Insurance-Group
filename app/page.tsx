@@ -15,21 +15,19 @@ export default function HomePage() {
       <section className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-6 pt-12 pb-12">
           <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Blynx Insurance Group
-          </p>
-
+           
           <h1 className="mt-4 max-w-4xl text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
-            Complex insurance needs require a fixer with market access.
+            Complex insurance needs require a fixer with market access. A team or problem solvers.
           </h1>
 
           <p className="mt-5 max-w-3xl text-lg text-gray-700 leading-relaxed">
             Blynx Insurance Group advises individuals, families, and businesses
             with complex risk profiles — situations that standard insurance
-            channels are not built to handle.
+            channels are not built to handle. When you have been denied or paying expensive premiums we will find the right insurance.
           </p>
 
           <p className="mt-3 max-w-3xl text-lg text-gray-700 leading-relaxed">
-            We are not a volume-driven retail brokerage. We design and place
+            We are not a volume-driven retail brokerage firm. We design and place
             coverage using specialty markets, layered programs, and
             non-standard underwriting — with discretion and professionalism.
           </p>
