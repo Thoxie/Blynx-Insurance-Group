@@ -46,7 +46,7 @@ export default function HomePage() {
             <div className="md:justify-self-end">
               <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-sm">
                 <Image
-                  src="/images/products/business-boardroom.jpg"
+                  src="/images/business-boardroom.jpg"
                   alt="Advisory-led placement strategy for complex risk"
                   width={1200}
                   height={800}
