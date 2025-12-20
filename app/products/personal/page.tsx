@@ -1,3 +1,5 @@
+// PATH: app/products/personal/page.tsx
+
 /**
  * Page: Personal Insurance
  * Route: /products/personal
@@ -21,71 +23,74 @@ export default function PersonalInsurancePage() {
           vehicles, and elevated liability exposure, personal insurance has to
           be engineered — not quoted.
         </p>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/quote"
-            className="rounded-xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 transition"
-          >
-            Request a Quote
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
-          >
-            Ask a question
-          </Link>
-        </div>
       </header>
 
-      <section className="grid gap-6 md:grid-cols-3">
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="font-semibold text-gray-900">Home & Property</h2>
+      <section className="grid gap-10">
+        {/* Added id="home" so the homepage tile can deep-link here */}
+        <div id="home" className="rounded-2xl border border-gray-200 bg-white p-8">
+          <h2 className="text-xl font-semibold text-gray-900">Home &amp; Property</h2>
+          <p className="mt-4 text-gray-700 leading-relaxed">
+            High-value homes and multiple residences introduce valuation,
+            replacement-cost, and coverage-structure issues that standard
+            policies often fail to address.
+          </p>
           <p className="mt-3 text-gray-700 leading-relaxed">
-            Primary and secondary homes, high-value rebuild cost, specialty
-            materials, coastal exposure, and higher-limit structures.
+            We evaluate exposures, coordinate limits, and structure the program
+            to protect both the asset and the broader liability picture.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="font-semibold text-gray-900">Auto & Specialty Vehicles</h2>
+        {/* Added id="auto" so the homepage tile can deep-link here */}
+        <div id="auto" className="rounded-2xl border border-gray-200 bg-white p-8">
+          <h2 className="text-xl font-semibold text-gray-900">
+            Auto &amp; Specialty Vehicles
+          </h2>
+          <p className="mt-4 text-gray-700 leading-relaxed">
+            Specialty vehicles, higher limits, multiple drivers, and unique use
+            cases require tighter underwriting and better carrier fit.
+          </p>
           <p className="mt-3 text-gray-700 leading-relaxed">
-            Premium auto, exotic/collector vehicles, agreed value, storage
-            concerns, and multi-driver households.
+            We structure auto coverage to align with umbrella strategy, household
+            exposures, and asset protection goals.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="font-semibold text-gray-900">Umbrella & Liability</h2>
-          <p className="mt-3 text-gray-700 leading-relaxed">
-            Proper umbrella structure, higher limits, personal risk factors,
-            and aligning liability across underlying policies.
+        <div className="rounded-2xl border border-gray-200 bg-white p-8">
+          <h2 className="text-xl font-semibold text-gray-900">
+            Umbrella &amp; Liability
+          </h2>
+          <p className="mt-4 text-gray-700 leading-relaxed">
+            Umbrella coverage should be designed around the actual exposure
+            profile — not a default limit. The program has to coordinate across
+            multiple underlying policies cleanly.
           </p>
         </div>
-      </section>
 
-      <section className="mt-10 grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-          <h3 className="font-semibold text-gray-900">Common complexity factors</h3>
+        <div className="rounded-2xl border border-gray-200 bg-white p-8">
+          <h2 className="text-xl font-semibold text-gray-900">
+            Common complexity factors
+          </h2>
           <ul className="mt-4 space-y-2 text-gray-700">
-            <li>• Multiple residences and layered ownership structures</li>
-            <li>• Prior claims, cancellations, or non-renewals</li>
-            <li>• Coastal/wildfire zones and catastrophe-model impacts</li>
-            <li>• Specialty assets and unusual liability exposure</li>
-            <li>• Need for discretion and simplified communication</li>
+            <li>• Multiple residences and layered property schedules</li>
+            <li>• Specialty vehicles and non-standard usage</li>
+            <li>• Higher liability exposure and public profile risk</li>
+            <li>• Prior claims history or market tightening</li>
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <h3 className="font-semibold text-gray-900">How Blynx approaches it</h3>
+        <div className="rounded-2xl border border-gray-200 bg-white p-8">
+          <h2 className="text-xl font-semibold text-gray-900">
+            How Blynx approaches it
+          </h2>
           <p className="mt-4 text-gray-700 leading-relaxed">
-            We start with the risk picture — not the carrier. Then we design a
-            structure that fits the client and bring the right markets to the
-            table, including specialty and excess options when appropriate.
+            We begin with a risk map, then build the placement strategy across
+            the appropriate carriers and programs — prioritizing structure,
+            coordination, and defensibility.
           </p>
-          <div className="mt-5">
-            <Link href="/quote" className="underline font-semibold">
-              Start a quote request →
+
+          <div className="mt-6">
+            <Link href="/quote" className="underline text-gray-900">
+              Get a Quote
             </Link>
           </div>
         </div>
