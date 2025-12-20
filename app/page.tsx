@@ -23,8 +23,7 @@ export default function HomePage() {
               </p>
 
               <h1 className="mt-2 max-w-xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
-                Complex insurance needs require a fixer with market access. A
-                team or problem solvers.
+                Complex insurance needs require a fixer with market access. A team of problem solvers. Fast, easy and cost effective.
               </h1>
 
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-gray-700">
