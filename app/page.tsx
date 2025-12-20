@@ -1,5 +1,12 @@
 // PATH: app/page.tsx
 
+/**
+ * Page: Home
+ * Route: /
+ * File: app/page.tsx
+ */
+
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -7,28 +14,59 @@ export default function HomePage() {
     <main className="flex flex-col">
       {/* HERO */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-6xl px-6 pb-12 pt-12">
-          <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-            {/* Intentionally blank */}
-          </p>
+        <div className="mx-auto max-w-6xl px-6 pt-12 pb-12">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            {/* Left: Copy */}
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                {/* Intentionally blank */}
+              </p>
 
-          <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
-            Complex insurance needs require a fixer with market access. A team
-            of problem solvers.
-          </h1>
+              <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
+                Complex insurance needs require a fixer with market access. A
+                team or problem solvers.
+              </h1>
 
-          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-700">
-            Blynx Insurance Group advises individuals, families, and businesses
-            with complex risk profiles — situations that standard insurance
-            channels are not built to handle. When you have been denied or
-            paying expensive premiums we will find the right insurance.
-          </p>
+              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-700">
+                Blynx Insurance Group advises individuals, families, and
+                businesses with complex risk profiles — situations that standard
+                insurance channels are not built to handle. When you have been
+                denied or paying expensive premiums we will find the right
+                insurance.
+              </p>
 
-          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-700">
-            We are not a volume-driven retail brokerage firm. We design and
-            place coverage using specialty markets, layered programs, and
-            non-standard underwriting — with discretion and professionalism.
-          </p>
+              <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-700">
+                We are not a volume-driven retail brokerage firm. We design and
+                place coverage using specialty markets, layered programs, and
+                non-standard underwriting — with discretion and professionalism.
+              </p>
+
+              {/* Removed per instruction:
+                  - Request a Quote box/section
+                  - Our Approach box/button
+                  - Homepage CTA buttons
+              */}
+            </div>
+
+            {/* Right: Hero image */}
+            <div className="relative">
+              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+                <Image
+                  src="/images/hero-meeting.jpg"
+                  alt="Blynx Insurance Group meeting with a senior advisor presenting coverage strategy"
+                  width={1600}
+                  height={900}
+                  className="h-auto w-full object-cover"
+                  priority
+                />
+              </div>
+
+              <p className="mt-3 text-xs text-gray-500">
+                {/* Optional: remove this line if you don't want a caption */}
+                Advisory-led placement strategy for complex risk.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -107,7 +145,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PRODUCTS ROW */}
+      {/* PRODUCTS ROW (6 boxes) */}
       <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-6 py-12">
           <h2 className="text-2xl font-semibold text-gray-900">
@@ -119,53 +157,70 @@ export default function HomePage() {
           </p>
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                href: "/products/business#commercial-property",
-                title: "Commercial Property",
-                desc: "Buildings, CAT exposure, coverage structure, and layered programs.",
-              },
-              {
-                href: "/products/personal#auto",
-                title: "Auto",
-                desc: "Specialty vehicles, higher limits, and complex underwriting.",
-              },
-              {
-                href: "/products/personal#home",
-                title: "Home",
-                desc: "High-value homes, multiple residences, and property complexities.",
-              },
-              {
-                href: "/products/life-health",
-                title: "Life & Health",
-                desc: "Life, disability, long-term care, and advanced planning.",
-              },
-              {
-                href: "/products/business",
-                title: "Business",
-                desc: "Liability, cyber, executive risk, and program design.",
-              },
-              {
-                href: "/products/benefits",
-                title: "Employee Benefits",
-                desc: "Group health and benefits strategy for teams and leadership.",
-              },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                legacyBehavior
-                passHref
-              >
-                <a className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                  <p className="mt-3 text-sm text-gray-700">{item.desc}</p>
-                </a>
-              </Link>
-            ))}
+            <Link
+              href="/products/business#commercial-property"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+            >
+              <h3 className="font-semibold text-gray-900">Commercial Property</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Buildings, CAT exposure, coverage structure, and layered
+                programs.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/personal#auto"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+            >
+              <h3 className="font-semibold text-gray-900">Auto</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Specialty vehicles, higher limits, and complex underwriting.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/personal#home"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+            >
+              <h3 className="font-semibold text-gray-900">Home</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                High-value homes, multiple residences, and property complexities.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/life-health"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+            >
+              <h3 className="font-semibold text-gray-900">Life &amp; Health</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Life, disability, long-term care, and advanced planning.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/business"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+            >
+              <h3 className="font-semibold text-gray-900">Business</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Liability, cyber, executive risk, and program design.
+              </p>
+            </Link>
+
+            <Link
+              href="/products/benefits"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:bg-gray-50"
+            >
+              <h3 className="font-semibold text-gray-900">Employee Benefits</h3>
+              <p className="mt-3 text-sm text-gray-700">
+                Group health and benefits strategy for teams and leadership.
+              </p>
+            </Link>
           </div>
         </div>
       </section>
     </main>
   );
 }
+
