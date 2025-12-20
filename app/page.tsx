@@ -14,7 +14,7 @@ export default function HomePage() {
     <main className="flex flex-col">
       {/* HERO */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-6xl px-6 pt-12 pb-12">
+        <div className="mx-auto max-w-6xl px-6 pb-12 pt-12">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             {/* Left: Copy */}
             <div>
@@ -46,7 +46,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
                 <Image
-                  src="/images/hero-meeting.webp"
+                  src="/images/hero-meeting.jpg.webp"
                   alt="Blynx Insurance Group meeting with a senior advisor presenting coverage strategy"
                   width={1600}
                   height={900}
@@ -215,3 +215,4 @@ export default function HomePage() {
     </main>
   );
 }
+
