@@ -49,10 +49,7 @@ function Dropdown({
         {label}
       </button>
 
-      {/*
-        Hover-bridge: prevents the dropdown from collapsing when moving the mouse
-        from the top-level button down into the menu (fixes the “hover gap” issue).
-      */}
+      {/* HOVER GAP BRIDGE: prevents dropdown from collapsing when moving mouse down */}
       <div className="absolute left-0 top-full h-2 w-full" />
 
       <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition absolute left-0 top-full z-50 mt-2 w-[320px] rounded-2xl border border-gray-200 bg-white shadow-lg p-2">
@@ -147,13 +144,14 @@ export default function RootLayout({
 
                 <Dropdown label="About">
                   <div className="grid gap-1">
+                    {/* FIXED: /about was 404 because app/about/page.tsx did not exist */}
                     <DropdownItem
-                      href="/about"
+                      href="/about-us"
                       title="About Us"
                       desc="Approach, discretion, who we serve."
                     />
                     <DropdownItem
-                      href="/about/testimonials"
+                      href="/about-us/testimonials"
                       title="Testimonials"
                       desc="What clients say."
                     />
@@ -198,53 +196,11 @@ export default function RootLayout({
                 Get a Quote
               </Link>
             </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-gray-500">Social:</span>
-              <a
-                className="underline"
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Facebook
-              </a>
-              <a
-                className="underline"
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram
-              </a>
-              <a
-                className="underline"
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                TikTok
-              </a>
-              <a
-                className="underline"
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a
-                className="underline"
-                href="https://youtube.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                YouTube
-              </a>
-            </div>
           </div>
         </footer>
       </body>
     </html>
   );
 }
+
+                  
