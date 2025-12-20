@@ -14,7 +14,7 @@ export default function HomePage() {
 
           <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
             Complex insurance needs require a fixer with market access. A team
-            or problem solvers.
+            of problem solvers.
           </h1>
 
           <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-700">
