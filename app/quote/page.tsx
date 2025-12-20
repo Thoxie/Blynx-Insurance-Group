@@ -1,239 +1,352 @@
+// PATH: app/quote/page.tsx
+
 /**
- * Page: Get a Quote
+ * Page: Get a Quote (Guided Intake)
  * Route: /quote
  * File: app/quote/page.tsx
  */
 
 "use client";
 
-/**
- * Page: Get a Quote
- * Route: /quote
- * File: app/quote/page.tsx
- */
-
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
-type Status = "idle" | "sending" | "success" | "error";
+type Line = "Personal" | "Business" | "Employee Benefits" | "Life & Health";
+type Step = 1 | 2 | 3;
+type Status = "idle" | "submitted";
+
+type FormState = {
+  line: Line | "";
+  urgency: "" | "ASAP (0–3 days)" | "Soon (1–2 weeks)" | "Not urgent (30+ days)";
+  situation: string;
+  details: string;
+
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+
+  preferredContact: "" | "Email" | "Phone" | "Text";
+  bestTime: "" | "Morning" | "Afternoon" | "Evening";
+  state: string; // US state
+};
+
+const LINES: Line[] = ["Personal", "Business", "Employee Benefits", "Life & Health"];
 
 export default function QuotePage() {
+  const [step, setStep] = useState<Step>(1);
   const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState<string>("");
-  const [form, setForm] = useState({
-    name: "",
+
+  const [form, setForm] = useState<FormState>({
+    line: "",
+    urgency: "",
+    situation: "",
+    details: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
-    quoteType: "Personal Insurance",
-    message: "",
+    preferredContact: "",
+    bestTime: "",
+    state: "",
   });
 
-  const canSubmit = useMemo(() => {
-    return form.name.trim().length > 0 && form.email.trim().length > 0;
-  }, [form.name, form.email]);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-
-    if (!canSubmit) {
-      setStatus("error");
-      setError("Name and email are required.");
-      return;
+  const situationOptions = useMemo(() => {
+    switch (form.line) {
+      case "Personal":
+        return [
+          "High-value home / multiple homes",
+          "Specialty auto / higher limits",
+          "Umbrella / liability structure",
+          "Prior losses / non-renewal",
+          "Hard-to-place / unusual exposure",
+          "Other",
+        ];
+      case "Business":
+        return [
+          "Commercial property placement",
+          "General liability / contract requirements",
+          "Cyber / executive risk",
+          "Layered limits / excess program design",
+          "Prior losses / market tightening",
+          "Other",
+        ];
+      case "Employee Benefits":
+        return [
+          "New benefits program",
+          "Renewal strategy / cost control",
+          "Plan design & carrier fit",
+          "Enrollment/admin cleanup",
+          "Voluntary benefits strategy",
+          "Other",
+        ];
+      case "Life & Health":
+        return [
+          "Life insurance planning",
+          "Disability / income protection",
+          "Long-term care planning",
+          "Business continuity coverage",
+          "Underwriting complexity / time-sensitive",
+          "Other",
+        ];
+      default:
+        return [];
     }
+  }, [form.line]);
 
-    try {
-      setStatus("sending");
+  const canGoStep2 = form.line !== "" && form.urgency !== "";
+  const canGoStep3 = form.situation !== "";
 
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "quote",
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          quoteType: form.quoteType,
-          message: form.message,
-        }),
-      });
+  const contactValid =
+    form.firstName.trim() &&
+    form.lastName.trim() &&
+    form.email.trim() &&
+    form.preferredContact !== "";
 
-      const data = await res.json();
+  function set<K extends keyof FormState>(key: K, value: FormState[K]) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
 
-      if (!res.ok || !data?.ok) {
-        setStatus("error");
-        setError(data?.error || "Submission failed.");
-        return;
-      }
+  function next() {
+    if (step === 1 && !canGoStep2) return;
+    if (step === 2 && !canGoStep3) return;
+    setStep((prev) => (prev === 3 ? 3 : ((prev + 1) as Step)));
+  }
 
-      setStatus("success");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        quoteType: "Personal Insurance",
-        message: "",
-      });
-    } catch (err: any) {
-      setStatus("error");
-      setError(err?.message || "Network error.");
-    }
+  function back() {
+    setStep((prev) => (prev === 1 ? 1 : ((prev - 1) as Step)));
+  }
+
+  function submit() {
+    if (!contactValid) return;
+    setStatus("submitted");
+  }
+
+  if (status === "submitted") {
+    return (
+      <main className="mx-auto max-w-3xl px-6 py-14">
+        <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+          Get a Quote
+        </p>
+        <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+          Intake received.
+        </h1>
+        <p className="mt-4 text-lg text-gray-700 leading-relaxed">
+          Thank you. This is a confirmation screen for now (we’ll add delivery
+          routing next). If you need to reach us immediately, use Contact.
+        </p>
+
+        <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6">
+          <h2 className="text-base font-semibold text-gray-900">Summary</h2>
+          <div className="mt-3 grid gap-2 text-sm text-gray-700">
+            <div>
+              <span className="font-semibold text-gray-900">Line:</span>{" "}
+              {form.line || "—"}
+            </div>
+            <div>
+              <span className="font-semibold text-gray-900">Urgency:</span>{" "}
+              {form.urgency || "—"}
+            </div>
+            <div>
+              <span className="font-semibold text-gray-900">Situation:</span>{" "}
+              {form.situation || "—"}
+            </div>
+            {form.details?.trim() ? (
+              <div>
+                <span className="font-semibold text-gray-900">Details:</span>{" "}
+                {form.details}
+              </div>
+            ) : null}
+            <div>
+              <span className="font-semibold text-gray-900">Name:</span>{" "}
+              {form.firstName} {form.lastName}
+            </div>
+            <div>
+              <span className="font-semibold text-gray-900">Email:</span>{" "}
+              {form.email}
+            </div>
+            {form.phone?.trim() ? (
+              <div>
+                <span className="font-semibold text-gray-900">Phone:</span>{" "}
+                {form.phone}
+              </div>
+            ) : null}
+            <div>
+              <span className="font-semibold text-gray-900">
+                Preferred contact:
+              </span>{" "}
+              {form.preferredContact}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            href="/contact"
+            className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+          >
+            Go to Contact
+          </Link>
+          <Link
+            href="/"
+            className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </main>
+    );
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-14">
-      <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          Get a Quote
-        </h1>
-        <p className="mt-4 text-lg text-gray-700 max-w-3xl">
-          Tell us what you need. We’ll respond with next steps and what we
-          require to place coverage properly.
-        </p>
+    <main className="mx-auto max-w-3xl px-6 py-14">
+      <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+        Get a Quote
+      </p>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
-          >
-            Prefer to send a message?
-          </Link>
-          <Link
-            href="/resources/refer"
-            className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
-          >
-            Refer a Friend
-          </Link>
+      <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        Guided Intake
+      </h1>
+
+      <p className="mt-4 text-lg text-gray-700 leading-relaxed">
+        This intake is designed for complex placements. Select the closest match
+        and add context where helpful.
+      </p>
+
+      <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6">
+        {/* Step indicator */}
+        <div className="flex items-center justify-between text-sm">
+          <div className="font-semibold text-gray-900">Step {step} of 3</div>
+          <div className="text-gray-500">
+            {step === 1
+              ? "Category"
+              : step === 2
+              ? "Situation"
+              : "Contact"}
+          </div>
         </div>
-      </header>
 
-      <section className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">Quote request</h2>
-          <p className="mt-3 text-gray-700 leading-relaxed">
-            This submits to <code className="font-semibold">/api/lead</code>.
-            Next step is wiring delivery to email/CRM.
-          </p>
-
-          <form onSubmit={onSubmit} className="mt-5 grid gap-4">
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-gray-900">
-                Name *
-              </label>
-              <input
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="Your name"
-                className="rounded-xl border border-gray-200 px-3 py-2"
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-gray-900">
-                Email *
-              </label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="you@email.com"
-                className="rounded-xl border border-gray-200 px-3 py-2"
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-gray-900">
-                Phone (optional)
-              </label>
-              <input
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                placeholder="(555) 555-5555"
-                className="rounded-xl border border-gray-200 px-3 py-2"
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-gray-900">
-                Quote type
+        {/* STEP 1 */}
+        {step === 1 ? (
+          <div className="mt-6 grid gap-5">
+            <div>
+              <label className="block text-sm font-semibold text-gray-900">
+                What do you need?
               </label>
               <select
-                value={form.quoteType}
-                onChange={(e) => setForm({ ...form, quoteType: e.target.value })}
-                className="rounded-xl border border-gray-200 px-3 py-2 bg-white"
+                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+                value={form.line}
+                onChange={(e) => {
+                  const v = e.target.value as Line | "";
+                  set("line", v);
+                  set("situation", "");
+                }}
               >
-                <option>Personal Insurance</option>
-                <option>Business Insurance</option>
-                <option>Employee Benefits</option>
-                <option>Life & Health</option>
+                <option value="">Select one…</option>
+                {LINES.map((l) => (
+                  <option key={l} value={l}>
+                    {l}
+                  </option>
+                ))}
               </select>
             </div>
 
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-gray-900">
-                Message
+            <div>
+              <label className="block text-sm font-semibold text-gray-900">
+                Urgency
+              </label>
+              <select
+                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+                value={form.urgency}
+                onChange={(e) =>
+                  set(
+                    "urgency",
+                    e.target.value as FormState["urgency"]
+                  )
+                }
+              >
+                <option value="">Select one…</option>
+                <option value="ASAP (0–3 days)">ASAP (0–3 days)</option>
+                <option value="Soon (1–2 weeks)">Soon (1–2 weeks)</option>
+                <option value="Not urgent (30+ days)">Not urgent (30+ days)</option>
+              </select>
+            </div>
+
+            {!canGoStep2 ? (
+              <div className="text-sm text-gray-500">
+                Select a category and urgency to continue.
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {/* STEP 2 */}
+        {step === 2 ? (
+          <div className="mt-6 grid gap-5">
+            <div>
+              <label className="block text-sm font-semibold text-gray-900">
+                Situation
+              </label>
+              <select
+                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+                value={form.situation}
+                onChange={(e) => set("situation", e.target.value)}
+              >
+                <option value="">Select one…</option>
+                {situationOptions.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-900">
+                Details (optional)
               </label>
               <textarea
-                rows={6}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Brief context: what you’re trying to solve, timeline, renewal date, key concerns."
-                className="rounded-xl border border-gray-200 px-3 py-2"
+                className="mt-2 w-full min-h-[120px] rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+                placeholder="Example: renewal date, prior non-renewal, asset type/value range, contractual limits, timeline, etc."
+                value={form.details}
+                onChange={(e) => set("details", e.target.value)}
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="w-fit rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition disabled:opacity-50"
-            >
-              {status === "sending" ? "Submitting..." : "Submit quote request"}
-            </button>
-
-            {status === "success" ? (
-              <div className="rounded-xl border border-green-200 bg-green-50 p-3 text-sm text-green-900">
-                Submitted. Next step is wiring delivery to email/CRM.
+            {!canGoStep3 ? (
+              <div className="text-sm text-gray-500">
+                Select a situation to continue.
               </div>
             ) : null}
-
-            {status === "error" ? (
-              <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-900">
-                {error || "Submission failed."}
-              </div>
-            ) : null}
-
-            <p className="text-sm text-gray-500">
-              Do not include sensitive information unless requested through a
-              secure channel.
-            </p>
-          </form>
-        </div>
-
-        <div className="grid gap-6">
-          <div className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-lg font-semibold">What to include</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-gray-700">
-              <li>Coverage type and state(s)</li>
-              <li>Timeline and renewal date</li>
-              <li>High-level assets / exposures</li>
-              <li>Current carrier (if applicable)</li>
-              <li>What you want different this time</li>
-            </ul>
           </div>
+        ) : null}
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-lg font-semibold">Prefer to talk first?</h2>
-            <p className="mt-3 text-gray-700">
-              Use the contact page and we’ll schedule the fastest next step.
-            </p>
-            <div className="mt-4">
-              <Link href="/contact" className="underline font-semibold">
-                Go to Contact →
-              </Link>
+        {/* STEP 3 */}
+        {step === 3 ? (
+          <div className="mt-6 grid gap-5">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="block text-sm font-semibold text-gray-900">
+                  First name
+                </label>
+                <input
+                  className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+                  value={form.firstName}
+                  onChange={(e) => set("firstName", e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-900">
+                  Last name
+                </label>
+                <input
+                  className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+                  value={form.lastName}
+                  onChange={(e) => set("lastName", e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+
+            <div>
+              <label className="block text-sm font
