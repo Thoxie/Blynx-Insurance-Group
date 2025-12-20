@@ -40,19 +40,13 @@ export default function HomePage() {
                 place coverage using specialty markets, layered programs, and
                 non-standard underwriting — with discretion and professionalism.
               </p>
-
-              {/* Removed per instruction:
-                  - Request a Quote box/section
-                  - Our Approach box/button
-                  - Homepage CTA buttons
-              */}
             </div>
 
             {/* Right: Hero image */}
             <div className="relative">
               <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
                 <Image
-                  src="/images/hero-meeting.jpg"
+                  src="/images/hero-meeting.webp"
                   alt="Blynx Insurance Group meeting with a senior advisor presenting coverage strategy"
                   width={1600}
                   height={900}
@@ -62,7 +56,6 @@ export default function HomePage() {
               </div>
 
               <p className="mt-3 text-xs text-gray-500">
-                {/* Optional: remove this line if you don't want a caption */}
                 Advisory-led placement strategy for complex risk.
               </p>
             </div>
@@ -163,8 +156,7 @@ export default function HomePage() {
             >
               <h3 className="font-semibold text-gray-900">Commercial Property</h3>
               <p className="mt-3 text-sm text-gray-700">
-                Buildings, CAT exposure, coverage structure, and layered
-                programs.
+                Buildings, CAT exposure, coverage structure, and layered programs.
               </p>
             </Link>
 
@@ -223,4 +215,3 @@ export default function HomePage() {
     </main>
   );
 }
-
