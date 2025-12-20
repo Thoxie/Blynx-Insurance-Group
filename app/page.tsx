@@ -19,7 +19,7 @@ export default function HomePage() {
             {/* Left: Text */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {/* intentionally blank to match your screenshot style */}
+                {/* intentionally blank to match your current design */}
               </p>
 
               <h1 className="mt-2 max-w-xl text-4xl font-semibold tracking-tight text-gray-900 md:text-5xl">
@@ -40,8 +40,6 @@ export default function HomePage() {
                 place coverage using specialty markets, layered programs, and
                 non-standard underwriting — with discretion and professionalism.
               </p>
-
-              {/* No homepage CTA buttons (kept removed) */}
             </div>
 
             {/* Right: Image */}
@@ -54,6 +52,7 @@ export default function HomePage() {
                   height={800}
                   className="h-auto w-full object-cover"
                   priority
+                  unoptimized
                 />
               </div>
               <p className="mt-3 text-xs text-gray-500">
